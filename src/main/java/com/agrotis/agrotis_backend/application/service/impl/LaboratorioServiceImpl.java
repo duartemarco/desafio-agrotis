@@ -1,5 +1,6 @@
 package com.agrotis.agrotis_backend.application.service.impl;
 
+import com.agrotis.agrotis_backend.application.dto.FiltrarLaboratorioDTO;
 import com.agrotis.agrotis_backend.application.dto.LaboratorioDTO;
 import com.agrotis.agrotis_backend.application.mapper.Mapper;
 import com.agrotis.agrotis_backend.application.service.interfaces.LaboratorioService;
@@ -30,8 +31,14 @@ public class LaboratorioServiceImpl implements LaboratorioService {
     }
 
     @Override
-    public List<LaboratorioDTO> listarLaboratorios() {
-        return List.of();
+    public List<LaboratorioDTO> filtrarLaboratorios(FiltrarLaboratorioDTO filtrarLaboratorioDTO) {
+        return laboratorioRepository.filtrarLaboratorios(
+                        filtrarLaboratorioDTO.getNome(),
+                        filtrarLaboratorioDTO.getDataInicial(),
+                        filtrarLaboratorioDTO.getDataFinal(),
+                        filtrarLaboratorioDTO.getObservacoes(),
+                        filtrarLaboratorioDTO.getQuantidadePessoas()
+                );
     }
 
     @Override

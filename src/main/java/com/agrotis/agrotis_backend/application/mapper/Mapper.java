@@ -64,7 +64,6 @@ public class Mapper {
     }
 
     public static LaboratorioDTO toDTO(Laboratorio laboratorio) {
-
         LaboratorioDTO laboratorioDTO = new LaboratorioDTO();
         laboratorioDTO.setId(laboratorio.getId());
         laboratorioDTO.setNome(laboratorio.getNome());
@@ -77,6 +76,5 @@ public class Mapper {
         laboratorio.setNome(laboratorioDTO.getNome());
         return laboratorio;
     }
-
 
 }
