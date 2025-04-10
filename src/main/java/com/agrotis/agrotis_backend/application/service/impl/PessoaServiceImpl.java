@@ -59,7 +59,6 @@ public class PessoaServiceImpl implements PessoaService {
 
                     pessoaAtualizada.setObservacoes(pessoaDTO.getObservacoes());
 
-                    // TODO: adicionar laboratório e propriedade
                     if (pessoaDTO.getInfosPropriedade() != null) {
                         Propriedade propriedade = new Propriedade();
                         propriedade.setId(pessoaDTO.getInfosPropriedade().getId());

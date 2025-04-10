@@ -1,9 +1,7 @@
 package com.agrotis.agrotis_backend.application.controller;
 
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
-import com.agrotis.agrotis_backend.application.mapper.PessoaMapper;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
-import com.agrotis.agrotis_backend.domain.model.Pessoa;
 import jakarta.validation.Valid;
 import jdk.jfr.Description;
 import org.springframework.http.HttpStatus;
@@ -11,9 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static com.agrotis.agrotis_backend.application.mapper.PessoaMapper.toDTO;
-import static com.agrotis.agrotis_backend.application.mapper.PessoaMapper.toEntity;
 
 @RestController
 @RequestMapping("/pessoas")
@@ -48,7 +43,9 @@ public class PessoaController {
     @Description("Atualiza as informações de uma Pessoa pelo seu ID")
     @PostMapping("/atualizar/{id}")
     public ResponseEntity<PessoaDTO> atualizaPessoa(@PathVariable Long id, @Valid @RequestBody PessoaDTO pessoaDTO) {
-        return pessoaService.atualizarPessoa(id, pessoaDTO);
+        return pessoaService.atualizarPessoa(id, pessoaDTO)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @Description("Deleta uma Pessoa pelo seu ID")
