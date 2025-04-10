@@ -1,46 +1,63 @@
 package com.agrotis.agrotis_backend.application.service.impl;
 
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
-import com.agrotis.agrotis_backend.application.mapper.PessoaMapper;
+import com.agrotis.agrotis_backend.application.mapper.Mapper;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
 import com.agrotis.agrotis_backend.domain.model.Laboratorio;
 import com.agrotis.agrotis_backend.domain.model.Pessoa;
 import com.agrotis.agrotis_backend.domain.model.Propriedade;
+import com.agrotis.agrotis_backend.repository.LaboratorioRepository;
 import com.agrotis.agrotis_backend.repository.PessoaRepository;
+import com.agrotis.agrotis_backend.repository.PropriedadeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.agrotis.agrotis_backend.application.mapper.PessoaMapper.toEntity;
+import static com.agrotis.agrotis_backend.application.mapper.Mapper.toEntity;
 
 @Service
 public class PessoaServiceImpl implements PessoaService {
 
     private final PessoaRepository pessoaRepository;
+    private final LaboratorioRepository laboratorioRepository;
+    private final PropriedadeRepository propriedadeRepository;
 
-    public PessoaServiceImpl(PessoaRepository pessoaRepository) {
+    public PessoaServiceImpl(PessoaRepository pessoaRepository, LaboratorioRepository laboratorioRepository, PropriedadeRepository propriedadeRepository) {
         this.pessoaRepository = pessoaRepository;
+        this.laboratorioRepository = laboratorioRepository;
+        this.propriedadeRepository = propriedadeRepository;
     }
 
     @Override
     public Optional<PessoaDTO> getPessoaById(Long id) {
         return pessoaRepository.findById(id)
-                .map(PessoaMapper::toDTO);
+                .map(Mapper::toDTO);
     }
 
     @Override
     public PessoaDTO addPessoa(PessoaDTO pessoaDTO) {
+
+        Long idPropriedade = pessoaDTO.getInfosPropriedade().getId();
+        Long idLaboratorio = pessoaDTO.getLaboratorio().getId();
+
         Pessoa pessoa = toEntity(pessoaDTO);
+
+        Propriedade propriedade = propriedadeRepository.getReferenceById(idPropriedade);
+        Laboratorio laboratorio = laboratorioRepository.getReferenceById(idLaboratorio);
+
+        pessoa.setInfosPropriedade(propriedade);
+        pessoa.setLaboratorio(laboratorio);
+
         pessoaRepository.save(pessoa);
-        return PessoaMapper.toDTO(pessoa);
+        return Mapper.toDTO(pessoa);
     }
 
     @Override
     public List<PessoaDTO> listarPessoas() {
         return pessoaRepository.findAll()
                 .stream()
-                .map(PessoaMapper::toDTO)
+                .map(Mapper::toDTO)
                 .toList();
     }
 
@@ -75,7 +92,7 @@ public class PessoaServiceImpl implements PessoaService {
 
                     Pessoa pessoa = toEntity(pessoaDTO);
                     pessoaRepository.save(pessoa);
-                    return PessoaMapper.toDTO(pessoa);
+                    return Mapper.toDTO(pessoa);
                 });
 
 

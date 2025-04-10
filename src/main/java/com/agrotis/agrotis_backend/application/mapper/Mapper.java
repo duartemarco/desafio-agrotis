@@ -7,7 +7,7 @@ import com.agrotis.agrotis_backend.domain.model.Pessoa;
 import com.agrotis.agrotis_backend.domain.model.Laboratorio;
 import com.agrotis.agrotis_backend.domain.model.Propriedade;
 
-public class PessoaMapper {
+public class Mapper {
 
     public static PessoaDTO toDTO(Pessoa pessoa) {
 
@@ -61,6 +61,21 @@ public class PessoaMapper {
         pessoa.setObservacoes(dto.getObservacoes());
 
         return pessoa;
+    }
+
+    public static LaboratorioDTO toDTO(Laboratorio laboratorio) {
+
+        LaboratorioDTO laboratorioDTO = new LaboratorioDTO();
+        laboratorioDTO.setId(laboratorio.getId());
+        laboratorioDTO.setNome(laboratorio.getNome());
+        return laboratorioDTO;
+    }
+
+    public static Laboratorio toEntity(LaboratorioDTO laboratorioDTO) {
+        Laboratorio laboratorio = new Laboratorio();
+        laboratorio.setId(laboratorioDTO.getId());
+        laboratorio.setNome(laboratorioDTO.getNome());
+        return laboratorio;
     }
 
 
