@@ -2,6 +2,7 @@ package com.agrotis.agrotis_backend.application.service.impl;
 
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
 import com.agrotis.agrotis_backend.application.mapper.Mapper;
+import com.agrotis.agrotis_backend.application.service.exception.LaboratorioNotFoundException;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
 import com.agrotis.agrotis_backend.domain.model.Laboratorio;
 import com.agrotis.agrotis_backend.domain.model.Pessoa;
@@ -9,6 +10,7 @@ import com.agrotis.agrotis_backend.domain.model.Propriedade;
 import com.agrotis.agrotis_backend.repository.LaboratorioRepository;
 import com.agrotis.agrotis_backend.repository.PessoaRepository;
 import com.agrotis.agrotis_backend.repository.PropriedadeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -43,8 +45,10 @@ public class PessoaServiceImpl implements PessoaService {
 
         Pessoa pessoa = toEntity(pessoaDTO);
 
-        Propriedade propriedade = propriedadeRepository.getReferenceById(idPropriedade);
-        Laboratorio laboratorio = laboratorioRepository.getReferenceById(idLaboratorio);
+        Propriedade propriedade = propriedadeRepository.findById(idPropriedade)
+                .orElseThrow(() -> new EntityNotFoundException("Não existe a propriedade com ID " + idPropriedade));
+        Laboratorio laboratorio = laboratorioRepository.findById(idLaboratorio)
+                .orElseThrow(LaboratorioNotFoundException::new);
 
         pessoa.setInfosPropriedade(propriedade);
         pessoa.setLaboratorio(laboratorio);
