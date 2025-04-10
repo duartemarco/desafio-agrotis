@@ -1,9 +1,7 @@
 package com.agrotis.agrotis_backend.domain.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -12,6 +10,8 @@ import java.time.LocalDateTime;
 @Table(name = "tbl_pessoa")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Pessoa {
 
     @Id
@@ -24,8 +24,12 @@ public class Pessoa {
 
     private LocalDateTime dataFinal;
 
+    @ManyToOne
+    @JoinColumn(name = "infos_propriedade_id")
     private Propriedade infosPropriedade;
 
+    @ManyToOne
+    @JoinColumn(name = "laboratorio_id")
     private Laboratorio laboratorio;
 
     private String observacoes;

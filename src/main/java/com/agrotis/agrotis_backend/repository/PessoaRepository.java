@@ -7,6 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
-//    Optional<Cliente> findClienteById(Long id);
-
 }
