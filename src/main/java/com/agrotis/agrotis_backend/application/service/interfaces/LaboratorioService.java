@@ -15,8 +15,6 @@ public interface LaboratorioService {
 
     LaboratorioDTO addLaboratorio(LaboratorioDTO laboratorioDTO);
 
-    List<LaboratorioDTO> filtrarLaboratorios(String nome, LocalDateTime dataInicial, LocalDateTime dataFinal, String observacoes, Integer quantidadePessoas);
-
     void deleteLaboratorioById(Long id);
 
     Optional<LaboratorioDTO> atualizarLaboratorio(Long id, LaboratorioDTO laboratorioDTO);
