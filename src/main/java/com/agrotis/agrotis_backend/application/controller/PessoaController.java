@@ -38,8 +38,9 @@ public class PessoaController {
 
     @Description("Consulta uma única pessoa pelo seu ID")
     @GetMapping("/consultar/{id}")
-    public Optional<Pessoa> consultarPessoa(@PathVariable Long id) {
-        return pessoaService.getPessoaById(id);
+    public ResponseEntity<PessoaDTO> consultarPessoa(@PathVariable Long id) {
+        Optional<Pessoa> pessoa = pessoaRepository.findById(id);
+        return pessoa.map(value -> ResponseEntity.ok(toDTO(value))).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 
