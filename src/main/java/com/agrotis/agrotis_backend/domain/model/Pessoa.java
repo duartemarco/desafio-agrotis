@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 @Table(name = "tbl_pessoa")
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
 public class Pessoa {
 
     @Id
