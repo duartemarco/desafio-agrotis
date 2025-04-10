@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface PessoaService {
 
     Optional<Pessoa> getPessoaById(Long id);
+    Pessoa addPessoa(Pessoa pessoa);
 }
