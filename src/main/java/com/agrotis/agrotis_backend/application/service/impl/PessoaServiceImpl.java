@@ -3,14 +3,15 @@ package com.agrotis.agrotis_backend.application.service.impl;
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
 import com.agrotis.agrotis_backend.application.mapper.PessoaMapper;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
+import com.agrotis.agrotis_backend.domain.model.Laboratorio;
 import com.agrotis.agrotis_backend.domain.model.Pessoa;
+import com.agrotis.agrotis_backend.domain.model.Propriedade;
 import com.agrotis.agrotis_backend.repository.PessoaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.agrotis.agrotis_backend.application.mapper.PessoaMapper.toDTO;
 import static com.agrotis.agrotis_backend.application.mapper.PessoaMapper.toEntity;
 
 @Service
@@ -49,18 +50,33 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public Optional<Pessoa> atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
-        Optional<Pessoa> pessoa = pessoaRepository.findById(id)
+    public Optional<PessoaDTO> atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
+        return pessoaRepository.findById(id)
                 .map(pessoaAtualizada -> {
                     pessoaAtualizada.setNome(pessoaDTO.getNome());
-                    pessoaAtualizada.setDataInicial(pessoaDTO.getDataInicial();
+                    pessoaAtualizada.setDataInicial(pessoaDTO.getDataInicial());
                     pessoaAtualizada.setDataFinal(pessoaDTO.getDataFinal());
 
                     pessoaAtualizada.setObservacoes(pessoaDTO.getObservacoes());
 
                     // TODO: adicionar laboratório e propriedade
+                    if (pessoaDTO.getInfosPropriedade() != null) {
+                        Propriedade propriedade = new Propriedade();
+                        propriedade.setId(pessoaDTO.getInfosPropriedade().getId());
+                        propriedade.setNome(pessoaDTO.getInfosPropriedade().getNome());
+                        pessoaAtualizada.setInfosPropriedade(propriedade);
+                    }
 
-                    return pessoaRepository.save(pessoaAtualizada);
+                    if (pessoaDTO.getLaboratorio() != null) {
+                        Laboratorio laboratorio = new Laboratorio();
+                        laboratorio.setId(pessoaDTO.getLaboratorio().getId());
+                        laboratorio.setNome(pessoaDTO.getLaboratorio().getNome());
+                        pessoaAtualizada.setLaboratorio(laboratorio);
+                    }
+
+                    Pessoa pessoa = toEntity(pessoaDTO);
+                    pessoaRepository.save(pessoa);
+                    return PessoaMapper.toDTO(pessoa);
                 });
 
 
