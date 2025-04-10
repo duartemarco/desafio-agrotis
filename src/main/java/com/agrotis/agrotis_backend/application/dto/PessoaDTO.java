@@ -1,5 +1,6 @@
 package com.agrotis.agrotis_backend.application.dto;
 
+import com.agrotis.agrotis_backend.domain.model.Laboratorio;
 import com.agrotis.agrotis_backend.domain.model.Pessoa;
 import lombok.*;
 
@@ -17,11 +18,19 @@ public class PessoaDTO {
     private LocalDateTime dataInicial;
     private LocalDateTime dataFinal;
 
-    private Long propriedadeId;
-    private String propriedadeNome;
+    private PropriedadeDTO infosPropriedade;
 
-    private Long laboratorioId;
-    private String laboratorioNome;
+    public PessoaDTO(Long id, String nome, LocalDateTime dataInicial, LocalDateTime dataFinal, PropriedadeDTO infosPropriedade, LaboratorioDTO laboratorio, String observacoes) {
+        this.id = id;
+        this.nome = nome;
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
+        this.infosPropriedade = infosPropriedade;
+        this.laboratorio = laboratorio;
+        this.observacoes = observacoes;
+    }
+
+    private LaboratorioDTO laboratorio;
 
     private String observacoes;
 
