@@ -21,7 +21,7 @@ public class PropriedadeController {
     @Description("Cadastra uma nova propriedade")
     @PostMapping("/cadastrar")
     public ResponseEntity<PropriedadeDTO> cadastraPropriedade(@RequestBody PropriedadeDTO propriedadeDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(propriedadeDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(propriedadeService.addPropriedade(propriedadeDTO));
     }
 
     @Description("Consulta uma única Propriedade pelo seu ID")

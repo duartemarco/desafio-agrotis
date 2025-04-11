@@ -1,9 +1,6 @@
 package com.agrotis.agrotis_backend.application.mapper;
 
-import com.agrotis.agrotis_backend.application.dto.AddPessoaDTO;
-import com.agrotis.agrotis_backend.application.dto.LaboratorioDTO;
-import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
-import com.agrotis.agrotis_backend.application.dto.PropriedadeDTO;
+import com.agrotis.agrotis_backend.application.dto.*;
 import com.agrotis.agrotis_backend.domain.model.Pessoa;
 import com.agrotis.agrotis_backend.domain.model.Laboratorio;
 import com.agrotis.agrotis_backend.domain.model.Propriedade;
@@ -16,6 +13,7 @@ public class Mapper {
         pessoaDTO.setNome(pessoa.getNome());
         pessoaDTO.setDataInicial(pessoa.getDataInicial());
         pessoaDTO.setDataFinal(pessoa.getDataFinal());
+        pessoaDTO.setId(pessoa.getId());
 
         if (pessoa.getInfosPropriedade() != null) {
             PropriedadeDTO propriedadeDTO = new PropriedadeDTO();
@@ -58,7 +56,7 @@ public class Mapper {
         return pessoa;
     }
 
-    public static Pessoa toEntity(AddPessoaDTO dto) {
+    public static Pessoa toEntity(PessoaRequestDTO dto) {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(dto.getNome());
         pessoa.setDataInicial(dto.getDataInicial());
@@ -103,5 +101,6 @@ public class Mapper {
         return propriedadeDTO;
 
     }
+
 
 }

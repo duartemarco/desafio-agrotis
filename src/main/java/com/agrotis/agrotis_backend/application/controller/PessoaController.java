@@ -1,6 +1,6 @@
 package com.agrotis.agrotis_backend.application.controller;
 
-import com.agrotis.agrotis_backend.application.dto.AddPessoaDTO;
+import com.agrotis.agrotis_backend.application.dto.PessoaRequestDTO;
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
 import jakarta.validation.Valid;
@@ -23,16 +23,14 @@ public class PessoaController {
 
     @Description("Cadastra uma nova pessoa")
     @PostMapping("cadastrar")
-    public ResponseEntity<PessoaDTO> cadastraPessoa(@Valid @RequestBody AddPessoaDTO pessoaDTO) {
+    public ResponseEntity<PessoaDTO> cadastraPessoa(@Valid @RequestBody PessoaRequestDTO pessoaDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.addPessoa(pessoaDTO));
     }
 
     @Description("Consulta uma única Pessoa pelo seu ID")
     @GetMapping("/consultar/{id}")
     public ResponseEntity<PessoaDTO> consultarPessoa(@PathVariable Long id) {
-        return pessoaService.getPessoaById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        return ResponseEntity.ok(pessoaService.getPessoaById(id));
     }
 
     @Description("Lista todas as Pessoas")
@@ -43,8 +41,8 @@ public class PessoaController {
 
     @Description("Atualiza as informações de uma Pessoa pelo seu ID")
     @PostMapping("/atualizar/{id}")
-    public ResponseEntity<PessoaDTO> atualizaPessoa(@PathVariable Long id, @Valid @RequestBody PessoaDTO pessoaDTO) {
-        PessoaDTO atualizado = pessoaService.atualizarPessoa(id, pessoaDTO);
+    public ResponseEntity<PessoaDTO> atualizaPessoa(@PathVariable Long id, @Valid @RequestBody PessoaRequestDTO pessoaRequestDTO) {
+        PessoaDTO atualizado = pessoaService.atualizarPessoa(id, pessoaRequestDTO);
         return ResponseEntity.ok(atualizado);
     }
 
@@ -53,6 +51,5 @@ public class PessoaController {
     public void apagarPessoa(@PathVariable Long id) {
         pessoaService.deletePessoaById(id);
     }
-
 
 }

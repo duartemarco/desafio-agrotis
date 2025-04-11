@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class PessoaDTO {
 
+    private Long id;
+
     @NotBlank
     private String nome;
 
