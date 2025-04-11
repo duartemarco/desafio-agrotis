@@ -86,7 +86,6 @@ public class PessoaServiceImpl implements PessoaService {
 
         if (pessoaDTO.getInfosPropriedade() != null) {
             Propriedade propriedade = new Propriedade();
-            propriedade.setId(pessoaDTO.getInfosPropriedade().getId());
             propriedade.setNome(pessoaDTO.getInfosPropriedade().getNome());
             pessoaAtualizada.setInfosPropriedade(propriedade);
         }

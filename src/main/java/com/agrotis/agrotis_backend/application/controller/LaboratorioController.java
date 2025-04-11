@@ -23,7 +23,7 @@ public class LaboratorioController {
     }
 
     @Description("Cadastra um novo laboratório")
-    @PostMapping("cadastrar")
+    @PostMapping("/cadastrar")
     public ResponseEntity<LaboratorioDTO> cadastraLaboratorio(@RequestBody LaboratorioDTO laboratorioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(laboratorioService.addLaboratorio(laboratorioDTO));
     }

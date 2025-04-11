@@ -56,7 +56,7 @@ public class LaboratorioServiceImpl implements LaboratorioService {
     public LaboratorioDTO atualizarLaboratorio(Long id, LaboratorioDTO laboratorioDTO) {
 
         Laboratorio laboratorio = laboratorioRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Laboratório com ID " + id + " não encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Laboratório com ID " + id + " não encontrado"));
 
         laboratorio.setNome(laboratorioDTO.getNome());
         laboratorioRepository.save(laboratorio);

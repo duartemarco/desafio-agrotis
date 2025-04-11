@@ -19,7 +19,6 @@ public class Mapper {
 
         if (pessoa.getInfosPropriedade() != null) {
             PropriedadeDTO propriedadeDTO = new PropriedadeDTO();
-            propriedadeDTO.setId(pessoa.getInfosPropriedade().getId());
             propriedadeDTO.setNome(pessoa.getInfosPropriedade().getNome());
             pessoaDTO.setInfosPropriedade(propriedadeDTO);
         }
@@ -44,7 +43,6 @@ public class Mapper {
 
         if (dto.getInfosPropriedade() != null) {
             Propriedade propriedade = new Propriedade();
-            propriedade.setId(dto.getInfosPropriedade().getId());
             propriedade.setNome(dto.getInfosPropriedade().getNome());
             pessoa.setInfosPropriedade(propriedade);
         }
@@ -92,6 +90,18 @@ public class Mapper {
         Laboratorio laboratorio = new Laboratorio();
         laboratorio.setNome(laboratorioDTO.getNome());
         return laboratorio;
+    }
+
+    public static Propriedade toEntity(PropriedadeDTO propriedadeDTO) {
+        Propriedade propriedade = new Propriedade();
+        propriedade.setNome(propriedadeDTO.getNome());
+        return propriedade;
+    }
+    public static PropriedadeDTO toDTO(Propriedade propriedade) {
+        PropriedadeDTO propriedadeDTO = new PropriedadeDTO();
+        propriedadeDTO.setNome(propriedade.getNome());
+        return propriedadeDTO;
+
     }
 
 }
