@@ -18,12 +18,14 @@ public class Mapper {
         if (pessoa.getInfosPropriedade() != null) {
             PropriedadeDTO propriedadeDTO = new PropriedadeDTO();
             propriedadeDTO.setNome(pessoa.getInfosPropriedade().getNome());
+            propriedadeDTO.setId(pessoa.getInfosPropriedade().getId());
             pessoaDTO.setInfosPropriedade(propriedadeDTO);
         }
 
         if (pessoa.getLaboratorio() != null) {
             LaboratorioDTO laboratorioDTO = new LaboratorioDTO();
             laboratorioDTO.setNome(pessoa.getLaboratorio().getNome());
+            laboratorioDTO.setId(pessoa.getLaboratorio().getId());
             pessoaDTO.setLaboratorio(laboratorioDTO);
         }
 
@@ -81,23 +83,27 @@ public class Mapper {
     public static LaboratorioDTO toDTO(Laboratorio laboratorio) {
         LaboratorioDTO laboratorioDTO = new LaboratorioDTO();
         laboratorioDTO.setNome(laboratorio.getNome());
+        laboratorioDTO.setId(laboratorio.getId());
         return laboratorioDTO;
     }
 
     public static Laboratorio toEntity(LaboratorioDTO laboratorioDTO) {
         Laboratorio laboratorio = new Laboratorio();
         laboratorio.setNome(laboratorioDTO.getNome());
+        laboratorio.setId(laboratorioDTO.getId());
         return laboratorio;
     }
 
     public static Propriedade toEntity(PropriedadeDTO propriedadeDTO) {
         Propriedade propriedade = new Propriedade();
         propriedade.setNome(propriedadeDTO.getNome());
+        propriedade.setId(propriedadeDTO.getId());
         return propriedade;
     }
     public static PropriedadeDTO toDTO(Propriedade propriedade) {
         PropriedadeDTO propriedadeDTO = new PropriedadeDTO();
         propriedadeDTO.setNome(propriedade.getNome());
+        propriedadeDTO.setId(propriedade.getId());
         return propriedadeDTO;
 
     }

@@ -29,6 +29,9 @@ public class LaboratorioServiceImpl implements LaboratorioService {
 
     @Override
     public LaboratorioDTO addLaboratorio(LaboratorioDTO laboratorioDTO) {
+        if (laboratorioDTO.getId() != null && laboratorioRepository.existsById(laboratorioDTO.getId())) {
+            throw new IllegalArgumentException("Já existe um laboratório com o ID " + laboratorioDTO.getId());
+        }
         Laboratorio laboratorio = Mapper.toEntity(laboratorioDTO);
         return Mapper.toDTO(laboratorioRepository.save(laboratorio));
     }

@@ -8,6 +8,8 @@ import lombok.*;
 @NoArgsConstructor
 public class LaboratorioDTO {
 
+    private Long id;
+
     @NotBlank
     private String nome;
 

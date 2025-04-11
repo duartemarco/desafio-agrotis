@@ -27,6 +27,9 @@ public class PropriedadeServiceImpl implements PropriedadeService {
 
     @Override
     public PropriedadeDTO addPropriedade(PropriedadeDTO propriedadeDTO) {
+        if (propriedadeDTO.getId() != null && propriedadeRepository.existsById(propriedadeDTO.getId())) {
+            throw new IllegalArgumentException("Já existe uma propriedade com o ID " + propriedadeDTO.getId());
+        }
         Propriedade propriedade = Mapper.toEntity(propriedadeDTO);
         return Mapper.toDTO(propriedadeRepository.save(propriedade));
     }

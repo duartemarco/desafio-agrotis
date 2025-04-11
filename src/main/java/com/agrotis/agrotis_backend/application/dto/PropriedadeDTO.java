@@ -8,7 +8,10 @@ import lombok.*;
 @NoArgsConstructor
 public class PropriedadeDTO {
 
+    private Long id;
+
     @NotBlank
     private String nome;
+
 
 }
