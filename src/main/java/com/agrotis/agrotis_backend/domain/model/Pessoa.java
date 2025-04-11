@@ -1,6 +1,8 @@
 package com.agrotis.agrotis_backend.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -16,10 +18,15 @@ public class Pessoa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
     private String nome;
 
+    @NotNull
+    @Column(name = "data_inicial")
     private LocalDateTime dataInicial;
 
+    @NotNull
+    @Column(name = "data_final")
     private LocalDateTime dataFinal;
 
     @ManyToOne

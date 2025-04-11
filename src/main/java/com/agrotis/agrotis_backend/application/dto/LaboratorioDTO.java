@@ -1,5 +1,6 @@
 package com.agrotis.agrotis_backend.application.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Data
@@ -7,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 public class LaboratorioDTO {
 
-    private Long id;
+    @NotBlank
     private String nome;
 
 }

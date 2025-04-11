@@ -2,6 +2,7 @@ package com.agrotis.agrotis_backend.application.controller;
 
 import com.agrotis.agrotis_backend.application.dto.FiltrarLaboratorioDTO;
 import com.agrotis.agrotis_backend.application.dto.LaboratorioDTO;
+import com.agrotis.agrotis_backend.application.dto.LaboratorioResponseDTO;
 import com.agrotis.agrotis_backend.application.service.interfaces.LaboratorioService;
 import jakarta.validation.Valid;
 import jdk.jfr.Description;
@@ -35,20 +36,18 @@ public class LaboratorioController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    // TODO corrigir e testar filtros
     @Description("Lista todos os Laboratórios com base nos filtros utilizados")
     @PostMapping("/consultar/all")
-    public ResponseEntity<List<LaboratorioDTO>> filtrarLaboratorios(@RequestBody FiltrarLaboratorioDTO filtrarLaboratorioDTO) {
-        List<LaboratorioDTO> filtrados = laboratorioService.filtrarLaboratorios(filtrarLaboratorioDTO);
+    public ResponseEntity<List<LaboratorioResponseDTO>> filtrarLaboratorios(@Valid @RequestBody FiltrarLaboratorioDTO filtros) {
+        List<LaboratorioResponseDTO> filtrados = laboratorioService.filtrarLaboratorios(filtros);
         return ResponseEntity.ok(filtrados);
     }
 
     @Description("Atualiza as informações de um Laboratório pelo seu ID")
     @PostMapping("/atualizar/{id}")
     public ResponseEntity<LaboratorioDTO> atualizaLaboratorio(@PathVariable Long id, @Valid @RequestBody LaboratorioDTO laboratorioDTO) {
-        return laboratorioService.atualizarLaboratorio(id, laboratorioDTO)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        LaboratorioDTO atualizado = laboratorioService.atualizarLaboratorio(id, laboratorioDTO);
+        return ResponseEntity.ok(atualizado);
     }
 
     @Description("Deleta um Laboratório pelo seu ID")

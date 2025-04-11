@@ -1,9 +1,9 @@
 package com.agrotis.agrotis_backend.domain.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @Entity
@@ -15,5 +15,8 @@ public class Laboratorio {
     @Id
     private Long id;
     private String nome;
+
+    @OneToMany(mappedBy = "laboratorio", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Pessoa> pessoas;
 
 }

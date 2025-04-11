@@ -1,5 +1,6 @@
 package com.agrotis.agrotis_backend.application.controller;
 
+import com.agrotis.agrotis_backend.application.dto.AddPessoaDTO;
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class PessoaController {
 
     @Description("Cadastra uma nova pessoa")
     @PostMapping("cadastrar")
-    public ResponseEntity<PessoaDTO> cadastraPessoa(@Valid @RequestBody PessoaDTO pessoaDTO) {
+    public ResponseEntity<PessoaDTO> cadastraPessoa(@Valid @RequestBody AddPessoaDTO pessoaDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.addPessoa(pessoaDTO));
     }
 
@@ -43,9 +44,8 @@ public class PessoaController {
     @Description("Atualiza as informações de uma Pessoa pelo seu ID")
     @PostMapping("/atualizar/{id}")
     public ResponseEntity<PessoaDTO> atualizaPessoa(@PathVariable Long id, @Valid @RequestBody PessoaDTO pessoaDTO) {
-        return pessoaService.atualizarPessoa(id, pessoaDTO)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        PessoaDTO atualizado = pessoaService.atualizarPessoa(id, pessoaDTO);
+        return ResponseEntity.ok(atualizado);
     }
 
     @Description("Deleta uma Pessoa pelo seu ID")

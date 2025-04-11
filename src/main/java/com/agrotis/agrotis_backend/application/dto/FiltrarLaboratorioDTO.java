@@ -12,14 +12,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FiltrarLaboratorioDTO {
 
-    private Long id;
-    private String nome;
-    private LocalDateTime dataInicial;
-    private LocalDateTime dataFinal;
-
+    private LocalDateTime dataInicialComeco;
+    private LocalDateTime dataInicialFim;
+    private LocalDateTime dataFinalComeco;
+    private LocalDateTime dataFinalFim;
+    private String observacoes;
     @NotNull
     private Integer quantidadePessoas;
 
-    private String observacoes;
 
 }

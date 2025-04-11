@@ -2,6 +2,7 @@ package com.agrotis.agrotis_backend.application.service.interfaces;
 
 import com.agrotis.agrotis_backend.application.dto.FiltrarLaboratorioDTO;
 import com.agrotis.agrotis_backend.application.dto.LaboratorioDTO;
+import com.agrotis.agrotis_backend.application.dto.LaboratorioResponseDTO;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,7 +18,7 @@ public interface LaboratorioService {
 
     void deleteLaboratorioById(Long id);
 
-    Optional<LaboratorioDTO> atualizarLaboratorio(Long id, LaboratorioDTO laboratorioDTO);
+    LaboratorioDTO atualizarLaboratorio(Long id, LaboratorioDTO laboratorioDTO);
 
-    List<LaboratorioDTO> filtrarLaboratorios(FiltrarLaboratorioDTO filtrarLaboratorioDTO);
+    List<LaboratorioResponseDTO> filtrarLaboratorios(FiltrarLaboratorioDTO filtrarLaboratorioDTO);
 }

@@ -1,5 +1,6 @@
 package com.agrotis.agrotis_backend.application.mapper;
 
+import com.agrotis.agrotis_backend.application.dto.AddPessoaDTO;
 import com.agrotis.agrotis_backend.application.dto.LaboratorioDTO;
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
 import com.agrotis.agrotis_backend.application.dto.PropriedadeDTO;
@@ -12,7 +13,6 @@ public class Mapper {
     public static PessoaDTO toDTO(Pessoa pessoa) {
 
         PessoaDTO pessoaDTO = new PessoaDTO();
-        pessoaDTO.setId(pessoa.getId());
         pessoaDTO.setNome(pessoa.getNome());
         pessoaDTO.setDataInicial(pessoa.getDataInicial());
         pessoaDTO.setDataFinal(pessoa.getDataFinal());
@@ -26,7 +26,6 @@ public class Mapper {
 
         if (pessoa.getLaboratorio() != null) {
             LaboratorioDTO laboratorioDTO = new LaboratorioDTO();
-            laboratorioDTO.setId(pessoa.getLaboratorio().getId());
             laboratorioDTO.setNome(pessoa.getLaboratorio().getNome());
             pessoaDTO.setLaboratorio(laboratorioDTO);
         }
@@ -39,7 +38,6 @@ public class Mapper {
 
     public static Pessoa toEntity(PessoaDTO dto) {
         Pessoa pessoa = new Pessoa();
-        pessoa.setId(dto.getId());
         pessoa.setNome(dto.getNome());
         pessoa.setDataInicial(dto.getDataInicial());
         pessoa.setDataFinal(dto.getDataFinal());
@@ -53,8 +51,29 @@ public class Mapper {
 
         if (dto.getLaboratorio() != null) {
             Laboratorio laboratorio = new Laboratorio();
-            laboratorio.setId(dto.getLaboratorio().getId());
             laboratorio.setNome(dto.getLaboratorio().getNome());
+            pessoa.setLaboratorio(laboratorio);
+        }
+
+        pessoa.setObservacoes(dto.getObservacoes());
+
+        return pessoa;
+    }
+
+    public static Pessoa toEntity(AddPessoaDTO dto) {
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(dto.getNome());
+        pessoa.setDataInicial(dto.getDataInicial());
+        pessoa.setDataFinal(dto.getDataFinal());
+
+        if (dto.getIdPropriedade() != null) {
+            Propriedade propriedade = new Propriedade();
+            propriedade.setId(dto.getIdPropriedade());
+            pessoa.setInfosPropriedade(propriedade);
+        }
+
+        if (dto.getIdLaboratorio() != null) {
+            Laboratorio laboratorio = new Laboratorio();
             pessoa.setLaboratorio(laboratorio);
         }
 
@@ -65,14 +84,12 @@ public class Mapper {
 
     public static LaboratorioDTO toDTO(Laboratorio laboratorio) {
         LaboratorioDTO laboratorioDTO = new LaboratorioDTO();
-        laboratorioDTO.setId(laboratorio.getId());
         laboratorioDTO.setNome(laboratorio.getNome());
         return laboratorioDTO;
     }
 
     public static Laboratorio toEntity(LaboratorioDTO laboratorioDTO) {
         Laboratorio laboratorio = new Laboratorio();
-        laboratorio.setId(laboratorioDTO.getId());
         laboratorio.setNome(laboratorioDTO.getNome());
         return laboratorio;
     }

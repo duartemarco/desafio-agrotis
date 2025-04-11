@@ -2,14 +2,16 @@ package com.agrotis.agrotis_backend.application.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PessoaDTO {
+public class AddPessoaDTO {
 
     @NotBlank
     private String nome;
@@ -20,8 +22,8 @@ public class PessoaDTO {
     @NotNull
     private LocalDateTime dataFinal;
 
-    private PropriedadeDTO infosPropriedade;
-    private LaboratorioDTO laboratorio;
+    private Long idPropriedade;
+    private Long idLaboratorio;
 
     private String observacoes;
 

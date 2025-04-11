@@ -1,5 +1,6 @@
 package com.agrotis.agrotis_backend.application.service.impl;
 
+import com.agrotis.agrotis_backend.application.dto.AddPessoaDTO;
 import com.agrotis.agrotis_backend.application.dto.PessoaDTO;
 import com.agrotis.agrotis_backend.application.mapper.Mapper;
 import com.agrotis.agrotis_backend.application.service.interfaces.PessoaService;
@@ -37,17 +38,17 @@ public class PessoaServiceImpl implements PessoaService {
     }
 
     @Override
-    public PessoaDTO addPessoa(PessoaDTO pessoaDTO) {
+    public PessoaDTO addPessoa(AddPessoaDTO addPessoaDTO) {
+        Pessoa pessoa = new Pessoa();
+        pessoa.setNome(addPessoaDTO.getNome());
+        pessoa.setDataInicial(addPessoaDTO.getDataInicial());
+        pessoa.setDataFinal(addPessoaDTO.getDataFinal());
 
-        Long idPropriedade = pessoaDTO.getInfosPropriedade().getId();
-        Long idLaboratorio = pessoaDTO.getLaboratorio().getId();
 
-        Pessoa pessoa = toEntity(pessoaDTO);
-
-        Propriedade propriedade = propriedadeRepository.findById(idPropriedade)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe a Propriedade com ID " + idPropriedade));
-        Laboratorio laboratorio = laboratorioRepository.findById(idLaboratorio)
-                .orElseThrow(() -> new EntityNotFoundException("Não existe o Laboratório com ID " + idLaboratorio));
+        Propriedade propriedade = propriedadeRepository.findById(addPessoaDTO.getIdPropriedade())
+                .orElseThrow(() -> new EntityNotFoundException("Não existe a Propriedade com ID " + addPessoaDTO.getIdPropriedade()));
+        Laboratorio laboratorio = laboratorioRepository.findById(addPessoaDTO.getIdLaboratorio())
+                .orElseThrow(() -> new EntityNotFoundException("Não existe o Laboratório com ID " + addPessoaDTO.getIdLaboratorio()));
 
         pessoa.setInfosPropriedade(propriedade);
         pessoa.setLaboratorio(laboratorio);
@@ -66,38 +67,38 @@ public class PessoaServiceImpl implements PessoaService {
 
     @Override
     public void deletePessoaById(Long id) {
+        if (!pessoaRepository.existsById(id)) {
+            throw new EntityNotFoundException("Pessoa com ID " + id + " não encontrado");
+        }
         pessoaRepository.deleteById(id);
     }
 
     @Override
-    public Optional<PessoaDTO> atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
-        return pessoaRepository.findById(id)
-                .map(pessoaAtualizada -> {
-                    pessoaAtualizada.setNome(pessoaDTO.getNome());
-                    pessoaAtualizada.setDataInicial(pessoaDTO.getDataInicial());
-                    pessoaAtualizada.setDataFinal(pessoaDTO.getDataFinal());
+    public PessoaDTO atualizarPessoa(Long id, PessoaDTO pessoaDTO) {
 
-                    pessoaAtualizada.setObservacoes(pessoaDTO.getObservacoes());
+        Pessoa pessoaAtualizada = pessoaRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Pessoa com ID " + id + " não encontrado"));
 
-                    if (pessoaDTO.getInfosPropriedade() != null) {
-                        Propriedade propriedade = new Propriedade();
-                        propriedade.setId(pessoaDTO.getInfosPropriedade().getId());
-                        propriedade.setNome(pessoaDTO.getInfosPropriedade().getNome());
-                        pessoaAtualizada.setInfosPropriedade(propriedade);
-                    }
+        pessoaAtualizada.setNome(pessoaDTO.getNome());
+        pessoaAtualizada.setDataInicial(pessoaDTO.getDataInicial());
+        pessoaAtualizada.setDataFinal(pessoaDTO.getDataFinal());
 
-                    if (pessoaDTO.getLaboratorio() != null) {
-                        Laboratorio laboratorio = new Laboratorio();
-                        laboratorio.setId(pessoaDTO.getLaboratorio().getId());
-                        laboratorio.setNome(pessoaDTO.getLaboratorio().getNome());
-                        pessoaAtualizada.setLaboratorio(laboratorio);
-                    }
+        pessoaAtualizada.setObservacoes(pessoaDTO.getObservacoes());
 
-                    Pessoa pessoa = toEntity(pessoaDTO);
-                    pessoaRepository.save(pessoa);
-                    return Mapper.toDTO(pessoa);
-                });
+        if (pessoaDTO.getInfosPropriedade() != null) {
+            Propriedade propriedade = new Propriedade();
+            propriedade.setId(pessoaDTO.getInfosPropriedade().getId());
+            propriedade.setNome(pessoaDTO.getInfosPropriedade().getNome());
+            pessoaAtualizada.setInfosPropriedade(propriedade);
+        }
 
+        if (pessoaDTO.getLaboratorio() != null) {
+            Laboratorio laboratorio = new Laboratorio();
+            laboratorio.setNome(pessoaDTO.getLaboratorio().getNome());
+            pessoaAtualizada.setLaboratorio(laboratorio);
+        }
+
+        pessoaRepository.save(pessoaAtualizada);
+        return Mapper.toDTO(pessoaAtualizada);
 
     }
 
