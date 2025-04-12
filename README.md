@@ -91,4 +91,4 @@ Você pode testar de maneira simples com o seguinte cURL:
    ```
 
 
-- Para maior praticidade, utilize a [Collection do Postman disponível aqui](https://drive.google.com/file/d/1xciKbzigKi56di4-PcRaNDva5u68YSlP/view?usp=sharing).
+- Para maior praticidade, utilize a [Collection do Postman disponível aqui](https://drive.google.com/file/d/1-hO8lVmeaPNEpsqRJazj6k_TQaYYK2a1/view?usp=sharing).
