@@ -78,7 +78,7 @@ A API expõe endpoints para cadastro, consulta, atualização e remoção de:
 Você pode testar de maneira simples com o seguinte cURL:
 
 ```bash
-   curl --location 'http://localhost:8080/pessoas/cadastrar' \
+   curl --location 'http://localhost:8080/pessoas' \
    --header 'Content-Type: application/json' \
    --header 'Cookie: JSESSIONID=B0FD4BEB271E48A5F0EDD20982265F65' \
    --data '{
