@@ -1,30 +1,48 @@
 # Teste Técnico para Agrotis Informática
 
-Este projeto é uma API REST com operações CRUD que utiliza Spring Boot como backend e Postgres como Banco de Dados.
-A aplicação permite a consulta, adição, atualização e remoção de Pessoas, Propriedades e Laboratórios.
+Este projeto é uma **API REST** desenvolvida com **Spring Boot** e **PostgreSQL**, que realiza operações **CRUD** para as entidades **Pessoa**, **Propriedade** e **Laboratório**.
 
-É possível rodar a aplicação de duas formas: via Maven ou via docker-compose. 
+Você pode rodar a aplicação de duas formas:
+- Usando o **Maven** localmente
+- Através do **Docker Compose**
 
-Em **application.properties** você encontrará a configuração do Banco de Dados.
+---
 
-## Instalação via Github
+## Instalação Local
 1. **Clone o repositório:**
 
    ```bash
    git clone https://github.com/duartemarco/desafio-agrotis.git
+   cd agrotis-backend
     ```
 
-2. **Instale as dependências:**
+2. **Certifique-se que o banco de dados PostgreSQL está rodando e crie um banco chamado:**
 
     ```bash
-    mvn clean install
+    CREATE DATABASE db_agrotis;
     ```
 
-3. **Rode a aplicação Spring Boot:**
+3. **Credenciais**
+
+
+Você pode utilizar o usuário padrão:
+- **Usuário:** `postgres`
+- **Senha:** `1234`
+
+Ou configurar suas credenciais com variáveis de ambiente:
+
+- `DATABASE_USERNAME`
+- `DATABASE_PASSWORD`
+
+
+3. **Rode a aplicação:**
 
     ```bash
-    mvn spring-boot:run
+    ./mvnw spring-boot:run
     ```
+O banco será atualizado automaticamente (ddl-auto=update) com base nas entidades. O AgrotisBackendApplication possui um CommandLineRunner para popular as tabelas de Laboratório e Propriedade.
+
+---
 
 ## Instalação via Docker
 1. **Clone o repositório**
@@ -36,3 +54,16 @@ Em **application.properties** você encontrará a configuração do Banco de Dad
     ```bash
     docker-compose up --build
     ```
+
+---
+
+## Endpoints Disponíveis
+
+A API expõe endpoints para cadastro, consulta, atualização e remoção de:
+
+- `/pessoas`
+- `/propriedades`
+- `/laboratorios`
+
+
+- Para maior praticidade, utilize a [Collection do Postman disponível aqui](https://drive.google.com/file/d/1xciKbzigKi56di4-PcRaNDva5u68YSlP/view?usp=sharing).
