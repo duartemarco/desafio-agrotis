@@ -19,13 +19,13 @@ public class PropriedadeController {
     }
 
     @Description("Cadastra uma nova propriedade")
-    @PostMapping("/cadastrar")
+    @PostMapping
     public ResponseEntity<PropriedadeDTO> cadastraPropriedade(@RequestBody PropriedadeDTO propriedadeDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(propriedadeService.addPropriedade(propriedadeDTO));
     }
 
     @Description("Consulta uma única Propriedade pelo seu ID")
-    @GetMapping("/consultar/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<PropriedadeDTO> consultaPropriedade(@PathVariable Long id) {
         return propriedadeService.getPropriedadeById(id)
                 .map(ResponseEntity::ok)
@@ -33,14 +33,14 @@ public class PropriedadeController {
     }
 
     @Description("Atualiza as informações de uma Propriedade pelo seu ID")
-    @PostMapping("/atualizar/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<PropriedadeDTO> atualizaPropriedade(@PathVariable Long id, @Valid @RequestBody PropriedadeDTO propriedadeDTO) {
         PropriedadeDTO atualizada = propriedadeService.atualizarPropriedade(id, propriedadeDTO);
         return ResponseEntity.ok(atualizada);
     }
 
     @Description("Deleta uma Propriedade pelo seu ID")
-    @DeleteMapping("/apagar/{id}")
+    @DeleteMapping("/{id}")
     public void apagarPropriedade(@PathVariable Long id) {
         propriedadeService.deletePropriedadeById(id);
     }

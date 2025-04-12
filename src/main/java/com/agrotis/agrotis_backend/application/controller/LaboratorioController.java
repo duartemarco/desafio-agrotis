@@ -23,13 +23,13 @@ public class LaboratorioController {
     }
 
     @Description("Cadastra um novo laboratório")
-    @PostMapping("/cadastrar")
+    @PostMapping
     public ResponseEntity<LaboratorioDTO> cadastraLaboratorio(@RequestBody LaboratorioDTO laboratorioDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(laboratorioService.addLaboratorio(laboratorioDTO));
     }
 
     @Description("Consulta um único Laboratório pelo seu ID")
-    @GetMapping("/consultar/{id}")
+    @GetMapping
     public ResponseEntity<LaboratorioDTO> consultaLaboratorio(@PathVariable Long id) {
         return laboratorioService.getLaboratorioById(id)
                 .map(ResponseEntity::ok)
@@ -37,21 +37,21 @@ public class LaboratorioController {
     }
 
     @Description("Lista todos os Laboratórios com base nos filtros utilizados")
-    @PostMapping("/consultar/all")
+    @PostMapping("/all")
     public ResponseEntity<List<LaboratorioResponseDTO>> filtrarLaboratorios(@Valid @RequestBody FiltrarLaboratorioDTO filtros) {
         List<LaboratorioResponseDTO> filtrados = laboratorioService.filtrarLaboratorios(filtros);
         return ResponseEntity.ok(filtrados);
     }
 
     @Description("Atualiza as informações de um Laboratório pelo seu ID")
-    @PostMapping("/atualizar/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<LaboratorioDTO> atualizaLaboratorio(@PathVariable Long id, @Valid @RequestBody LaboratorioDTO laboratorioDTO) {
         LaboratorioDTO atualizado = laboratorioService.atualizarLaboratorio(id, laboratorioDTO);
         return ResponseEntity.ok(atualizado);
     }
 
     @Description("Deleta um Laboratório pelo seu ID")
-    @DeleteMapping("/apagar/{id}")
+    @DeleteMapping("/{id}")
     public void apagarLaboratorio(@PathVariable Long id) {
         laboratorioService.deleteLaboratorioById(id);
     }

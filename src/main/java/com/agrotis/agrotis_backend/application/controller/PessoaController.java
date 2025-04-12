@@ -22,32 +22,32 @@ public class PessoaController {
     }
 
     @Description("Cadastra uma nova pessoa")
-    @PostMapping("cadastrar")
+    @PostMapping
     public ResponseEntity<PessoaDTO> cadastraPessoa(@Valid @RequestBody PessoaRequestDTO pessoaDTO) {
         return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.addPessoa(pessoaDTO));
     }
 
     @Description("Consulta uma única Pessoa pelo seu ID")
-    @GetMapping("/consultar/{id}")
+    @GetMapping("/c{id}")
     public ResponseEntity<PessoaDTO> consultarPessoa(@PathVariable Long id) {
         return ResponseEntity.ok(pessoaService.getPessoaById(id));
     }
 
     @Description("Lista todas as Pessoas")
-    @GetMapping("/consultar/all")
+    @GetMapping("/all")
     public ResponseEntity<List<PessoaDTO>> listarPessoas() {
         return ResponseEntity.ok(pessoaService.listarPessoas());
     }
 
     @Description("Atualiza as informações de uma Pessoa pelo seu ID")
-    @PostMapping("/atualizar/{id}")
+    @PostMapping("/{id}")
     public ResponseEntity<PessoaDTO> atualizaPessoa(@PathVariable Long id, @Valid @RequestBody PessoaRequestDTO pessoaRequestDTO) {
         PessoaDTO atualizado = pessoaService.atualizarPessoa(id, pessoaRequestDTO);
         return ResponseEntity.ok(atualizado);
     }
 
     @Description("Deleta uma Pessoa pelo seu ID")
-    @DeleteMapping("/apagar/{id}")
+    @DeleteMapping("/{id}")
     public void apagarPessoa(@PathVariable Long id) {
         pessoaService.deletePessoaById(id);
     }
