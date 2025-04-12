@@ -50,7 +50,17 @@ O banco será atualizado automaticamente (ddl-auto=update) com base nas entidade
    ```bash
    git clone https://github.com/duartemarco/desafio-agrotis.git
     ```
-2. **Navegue até compose.yaml e digite no terminal:**
+
+2. **Naveque até application.properties e comente a url do banco local**   
+   ```bash
+   # Usando banco local
+   #spring.datasource.url=jdbc:postgresql://localhost:5432/db_agrotis
+   
+   # Usando docker-compose
+   spring.datasource.url=jdbc:postgresql://db:5432/db_agrotis
+   ```
+
+3. **Navegue até compose.yaml e digite no terminal:**
     ```bash
     docker-compose up --build
     ```
@@ -64,6 +74,21 @@ A API expõe endpoints para cadastro, consulta, atualização e remoção de:
 - `/pessoas`
 - `/propriedades`
 - `/laboratorios`
+
+Você pode testar de maneira simples com o seguinte cURL:
+
+```bash
+   curl --location 'http://localhost:8080/pessoas/cadastrar' \
+   --header 'Content-Type: application/json' \
+   --header 'Cookie: JSESSIONID=B0FD4BEB271E48A5F0EDD20982265F65' \
+   --data '{
+   "nome": "João da Teste",
+   "dataInicial": "2025-04-01T00:00:00",
+   "dataFinal": "2025-04-10T00:00:00",
+   "idPropriedade": 1,
+   "idLaboratorio": 2
+   }'    
+   ```
 
 
 - Para maior praticidade, utilize a [Collection do Postman disponível aqui](https://drive.google.com/file/d/1xciKbzigKi56di4-PcRaNDva5u68YSlP/view?usp=sharing).
